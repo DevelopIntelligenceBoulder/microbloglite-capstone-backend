@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 //require bcrytp to help with password encryption
 const bcrypt = require("bcrypt")
 
+const opts = { timestamps: true };
 //Create our schema using mongoose that contains the fields and their data types for our Users
 //More info: https://mongoosejs.com/docs/schematypes.html
 const userSchema = new mongoose.Schema({
@@ -28,7 +29,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         select: false
     }
-})
+}, opts)
 
 userSchema.pre('save', function(next) {
     let user = this;

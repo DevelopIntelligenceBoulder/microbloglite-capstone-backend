@@ -1,7 +1,7 @@
 //bring in mongoose so we can create a schema that represents the data for a Post
 const mongoose = require("mongoose");
 
-const opts = { toJSON: { virtuals: true}, id: false };
+const opts = { toJSON: { virtuals: true}, id: false, timestamps: { createdAt: true, updatedAt: false } };
 //Create our schema using mongoose that contains the fields and their data types for our Users
 //More info: https://mongoosejs.com/docs/schematypes.html
 const postSchema = new mongoose.Schema({

@@ -1,6 +1,7 @@
 //bring in mongoose so we can create a schema that represents the data for a Like
 const mongoose = require("mongoose");
 
+const opts = { timestamps: { createdAt: true, updatedAt: false } };
 //Create our schema using mongoose that contains the fields and their data types for our Likes
 //More info: https://mongoosejs.com/docs/schematypes.html
 const likeSchema = new mongoose.Schema({
@@ -13,7 +14,7 @@ const likeSchema = new mongoose.Schema({
         required: true,
         minlength: 3
     },
-})
+}, opts)
 
 likeSchema.index({ postId: 1, username: 1 }, { unique: true });
 
