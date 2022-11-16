@@ -3,7 +3,7 @@ info:
   title: MicroblogLite API
   version: "1.0.0"
 servers:
-  - url: https://microbloglite.herokuapp.com/
+  - url: https://microbloglite.herokuapp.com
     description: Heroku
   - url: http://localhost:5000
     description: localhost
