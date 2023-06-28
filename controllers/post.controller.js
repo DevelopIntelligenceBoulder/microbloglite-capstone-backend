@@ -25,7 +25,7 @@ const postController = {
             //use our model to find users that match a query.
             //{} is the current query which really mean find all the users
             //we use await here since this is an async process and we want the code to wait for this to finish before moving on to the next line of code
-            let allPosts = await Post.find(query, {__v: 0}).populate("likes", {__v: 0}).limit(limit).skip(skip)
+            let allPosts = await Post.find(query, { __v: 0 }).populate("likes", { __v: 0 }).limit(limit).skip(skip).sort({ createdAt: 'desc' })
             
             //return all the users that we found in JSON format
             res.json(allPosts)
