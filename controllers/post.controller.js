@@ -11,8 +11,14 @@ const postController = {
         //create base query
         let query = {}
 
-        let limit = parseInt(req.query.limit) || 100
-        let skip =  parseInt(req.query.offset) || 0
+        let limit = parseInt(req.query.limit)  || 100
+        let skip  = parseInt(req.query.offset) || 0
+        let sort  = req.query.offset;
+        let sortValue = { createdAt: 'desc' }
+        if (sort) {
+            let sortOrder = sort.startsWith("-") ? 'desc' : 'asc';
+            sortValue = { [sort]: sortOrder };
+        }
 
         //if firstName filter appears in query parameters then modify the query to do a fuzzy search
         if(req.query.username){
@@ -25,7 +31,7 @@ const postController = {
             //use our model to find users that match a query.
             //{} is the current query which really mean find all the users
             //we use await here since this is an async process and we want the code to wait for this to finish before moving on to the next line of code
-            let allPosts = await Post.find(query, {__v: 0}).populate("likes", {__v: 0}).limit(limit).skip(skip)
+            let allPosts = await Post.find(query, {__v: 0}).populate("likes", {__v: 0}).skip(skip).limit(limit).sort(sortValue);
             
             //return all the users that we found in JSON format
             res.json(allPosts)
