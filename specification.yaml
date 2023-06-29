@@ -3,7 +3,7 @@ info:
   title: MicroblogLite API
   version: "1.0.0"
 servers:
-  - url: https://microbloglite.herokuapp.com
+  - url: https://microbloglite.onrender.com
     description: Heroku
   - url: http://localhost:5000
     description: localhost
@@ -164,6 +164,13 @@ components:
         format: int32
         minimum: 0
         default: 0
+    sortParam:
+      name: sort
+      in: query
+      description: Field to sort by ascendingly by default, and decendingly if `-` is prepended (defaults to `-createdBy`)
+      required: false
+      schema:
+        type: string
   headers:
     WWW-Authenticate:
       description: Includes the URI location to receive a bearer token
@@ -433,6 +440,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/limitParam"
         - $ref: "#/components/parameters/offsetParam"
+        - $ref: "#/components/parameters/sortParam"
         - name: username
           in: query
           description: Get posts created by this username
