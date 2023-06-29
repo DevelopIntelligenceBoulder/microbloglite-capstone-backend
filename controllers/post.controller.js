@@ -13,10 +13,12 @@ const postController = {
 
         let limit = parseInt(req.query.limit)  || 100
         let skip  = parseInt(req.query.offset) || 0
-        let sort  = req.query.offset;
-        let sortValue = { createdAt: 'desc' }
+        let sort  = req.query.sort || "-createdAt";
+
+        let sortValue = { createdAt: -1 };
         if (sort) {
-            let sortOrder = sort.startsWith("-") ? 'desc' : 'asc';
+            let sortOrder = sort.startsWith("-") ? -1 : 1;
+            sort = sort.startsWith("-") ? sort.slice(1) : sort;
             sortValue = { [sort]: sortOrder };
         }
 
@@ -31,6 +33,7 @@ const postController = {
             //use our model to find users that match a query.
             //{} is the current query which really mean find all the users
             //we use await here since this is an async process and we want the code to wait for this to finish before moving on to the next line of code
+            console.log("sortValue = ", sortValue);
             let allPosts = await Post.find(query, {__v: 0}).populate("likes", {__v: 0}).skip(skip).limit(limit).sort(sortValue);
             
             //return all the users that we found in JSON format

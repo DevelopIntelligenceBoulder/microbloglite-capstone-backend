@@ -167,10 +167,11 @@ components:
     sortParam:
       name: sort
       in: query
-      description: Field to sort by ascendingly by default, and decendingly if `-` is prepended (defaults to `-createdBy`)
+      description: Field to sort by (in descending order if preceeded by `-`, otherwise in ascending order)
       required: false
       schema:
         type: string
+        default: -createdAt
   headers:
     WWW-Authenticate:
       description: Includes the URI location to receive a bearer token
