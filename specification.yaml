@@ -3,6 +3,8 @@ info:
   title: MicroblogLite API
   version: "1.0.0"
 servers:
+  - url: https://microbloglite.onrender.com
+    description: Render
   - url: https://microbloglite.herokuapp.com
     description: Heroku
   - url: http://localhost:5000
