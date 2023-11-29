@@ -1,6 +1,6 @@
 require("dotenv-safe").config();
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require("cors")
@@ -8,7 +8,8 @@ const cors = require("cors")
 const auth = require("./auth");
 
 //Bring in Mongoose so we can communicate with MongoDB
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', true);
 
 //Use mongoose to connect to MongoDB. Display success or failure message depending on connection status
 mongoose.connect(process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/myApplication", { useNewUrlParser: true })
@@ -16,7 +17,7 @@ mongoose.connect(process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/myApplic
         console.log("we have connected to mongo")
     }).catch(() => {
         console.log("could not connect to mongo")
-    })
+    });
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth.routes');
@@ -73,6 +74,6 @@ app.use((err, req, res, next) => {
       console.log(err);
       next();
     }
-  })
+  });
 
 module.exports = app;
