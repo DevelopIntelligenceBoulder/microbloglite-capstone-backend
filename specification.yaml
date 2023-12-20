@@ -3,7 +3,11 @@ info:
   title: MicroblogLite API
   version: "1.0.0"
 servers:
+  - url: http://microbloglite.us-east-2.elasticbeanstalk.com
+    description: AWS
   - url: https://microbloglite.onrender.com
+    description: Render
+  - url: https://microbloglite.herokuapp.com
     description: Heroku
   - url: http://localhost:5000
     description: localhost
