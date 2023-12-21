@@ -7,18 +7,6 @@ const cors = require("cors")
 
 const auth = require("./auth");
 
-//Bring in Mongoose so we can communicate with MongoDB
-const mongoose = require('mongoose');
-mongoose.set('strictQuery', true);
-
-//Use mongoose to connect to MongoDB. Display success or failure message depending on connection status
-mongoose.connect(process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/myApplication", { useNewUrlParser: true })
-    .then(() => {
-        console.log("we have connected to mongo")
-    }).catch(() => {
-        console.log("could not connect to mongo")
-    });
-
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/user.routes');
