@@ -21,13 +21,27 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+//Bring in Mongoose so we can communicate with MongoDB
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', true);
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+//Use mongoose to connect to MongoDB. Display success or failure message depending on connection status
+//If a connection to Mongo is successful, the server will start listening.
+mongoose.connect(process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/myApplication", { useNewUrlParser: true })
+    .then(() => {
+        console.log("we have connected to mongo")
+        
+        /**
+         * Listen on provided port, on all network interfaces.
+         */
+        
+        server.listen(port);
+        server.on('error', onError);
+        server.on('listening', onListening);
+    }).catch(() => {
+        console.log("could not connect to mongo")
+    });
+
 
 /**
  * Normalize a port into a number, string, or false.

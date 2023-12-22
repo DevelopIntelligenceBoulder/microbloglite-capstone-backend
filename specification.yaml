@@ -7,8 +7,6 @@ servers:
     description: AWS
   - url: https://microbloglite.onrender.com
     description: Render
-  - url: https://microbloglite.herokuapp.com
-    description: Heroku
   - url: http://localhost:5000
     description: localhost
 components:
@@ -21,7 +19,7 @@ components:
           $ref: "#/components/schemas/username"
         fullName:
           $ref: "#/components/schemas/fullName"
-        about:
+        bio:
           $ref: "#/components/schemas/bio"
         createdAt:
           $ref: "#/components/schemas/timestamp"
