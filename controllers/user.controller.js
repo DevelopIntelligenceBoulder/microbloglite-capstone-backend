@@ -38,21 +38,32 @@ const userController = {
     //method to create a new user
     createUser: async function(req, res){
 
+        //store user data sent through the request
+        const userData = req.body;
+        const exactUsernameCaseInsensitive = new RegExp(`^${userData.username}$`, "i");
+        
         try {
-
-            //store user data sent through the request
-            const userData = req.body;
+            const alreadyExists = await User.exists({ username: exactUsernameCaseInsensitive });
+            if (alreadyExists) {
+                res.status(409)
+                throw new Error(`conflict: username \`${userData.username}\` already exists.`)
+            }
 
             //pass the userData to the create method of the User model
             let newUser = await User.create(userData)
 
             //return the newly created user
-            res.status(201).json(await User.findById(newUser._id, {_id:0, __v: 0}))
-            
+            res.status(201).json(await User.findById(newUser._id, {_id: 0, __v: 0}))
         } catch (error) {
             //handle errors creating user
-            console.log("failed to create user: " + error)
-            res.status(400).json({
+            error.message = "failed to create user: " + error.message
+            console.log(error.message)
+            
+            if (res.statusCode < 400) {
+                res.status(400)
+            }
+            
+            res.json({
                 message: error.message,
                 statusCode: res.statusCode
             })

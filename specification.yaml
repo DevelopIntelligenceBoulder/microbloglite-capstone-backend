@@ -204,6 +204,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/OperationalError"
+    409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/OperationalError"
     413:
       description: Payload Too Large
       content:
@@ -349,6 +355,8 @@ paths:
                   - $ref: "#/components/schemas/SuccessStatusCode"
         400:
           $ref: "#/components/responses/400"
+        409:
+          $ref: "#/components/responses/409"
   /api/users/{username}:
     get:
       summary: Get a user
