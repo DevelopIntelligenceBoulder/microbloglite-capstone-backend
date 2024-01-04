@@ -1,5 +1,5 @@
 //Import our model so we can us it to interact with the realated data in MongoDB
-const User = require("../models/user.model")
+const User = require('../models/user.model')
 
 
 //build our controller that will have our CRUD and other methods for our users
@@ -26,7 +26,7 @@ const userController = {
             res.json(allUsers)
             
         } catch (error) {
-            console.log("error getting all users: " + error)
+            console.log('error getting all users: ' + error)
             //if any code in the try block fails, send the user a HTTP status of 400 and a message stating we could not find any users
             res.status(400).json({
                 message: error.message,
@@ -56,7 +56,7 @@ const userController = {
             res.status(201).json(await User.findById(newUser._id, {_id: 0, __v: 0}))
         } catch (error) {
             //handle errors creating user
-            error.message = "failed to create user: " + error.message
+            error.message = 'failed to create user: ' + error.message
             console.log(error.message)
             
             if (res.statusCode < 400) {
@@ -89,14 +89,14 @@ const userController = {
                 Object.assign(user, newUserData)
                 await user.save()
             }else{
-                res.status(404).send({message: "User not found", statusCode: res.statusCode});
+                res.status(404).send({message: 'User not found', statusCode: res.statusCode});
             }
 
             //respond with updated user
             res.json(await User.findById(user._id, {_id:0, __v: 0}))
             
         } catch (error) {
-            console.log("failed to update user: " + error)
+            console.log('failed to update user: ' + error)
             res.status(400).json({
                 message: error.message,
                 statusCode: res.statusCode
@@ -124,12 +124,12 @@ const userController = {
             }else{
                 res.status(404).send({
                     status: res.statusCode,
-                    message: "User Not Found!"
+                    message: 'User Not Found!'
                 })
             }
             
         } catch (error) {
-            console.log("error getting user: " + error)
+            console.log('error getting user: ' + error)
             //if any code in the try block fails, send the user a HTTP status of 400 and a message stating we could not find the user
             res.status(400).json({
                 message: error.message,

@@ -1,5 +1,5 @@
 //Import our model so we can us it to interact with the realated data in MongoDB
-const Like = require("../models/like.model")
+const Like = require('../models/like.model')
 
 
 //build our controller that will have our CRUD and other methods for our posts
@@ -12,7 +12,7 @@ const likeController = {
 
             //store user data sent through the request
             const likeData = req.body;
-            likeData.username = req.user.get("username")
+            likeData.username = req.user.get('username')
 
             //pass the userData to the create method of the User model
             let newLike = await Like.create(likeData)
@@ -22,7 +22,7 @@ const likeController = {
             
         } catch (error) {
             //handle errors creating user
-            console.log("failed to create like: " + error)
+            console.log('failed to create like: ' + error)
             res.status(400).json({
                 message: error.message,
                 statusCode: res.statusCode
@@ -50,16 +50,16 @@ const likeController = {
                         if (error) throw error
                     });
 
-                res.status(202).send({ message: "Like deleted", statusCode: res.statusCode });
+                res.status(202).send({ message: 'Like deleted', statusCode: res.statusCode });
             }else{
                 res.status(404).send({
                     status: res.statusCode,
-                    message: "Like Not Found!"
+                    message: 'Like Not Found!'
                 })
             }
             
         } catch (error) {
-            console.log("failed to delete like: " + error)
+            console.log('failed to delete like: ' + error)
             //if any code in the try block fails, send the user a HTTP status of 400 and a message stating we could not delete the post
             res.status(400).json({
                 message: error.message,

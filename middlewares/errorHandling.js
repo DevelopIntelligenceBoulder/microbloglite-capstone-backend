@@ -8,7 +8,7 @@ const errorHandler = (err, req, res, next) => {
     if (err.statusCode >= 400 && err.statusCode < 500) {
         if (err.statusCode === 401) {
             res.set(
-                "WWW-Authenticate",
+                'WWW-Authenticate',
                 `Bearer realm="POST your username and password to /auth/login to receive a token"`
             );
         }

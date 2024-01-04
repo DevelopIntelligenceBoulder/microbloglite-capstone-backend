@@ -1,8 +1,8 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 //Import our model so we can us it to interact with the realated data in MongoDB
-const User = require("../models/user.model")
+const User = require('../models/user.model');
 
 
 const authController = {
@@ -22,7 +22,7 @@ const authController = {
             if ( user &&  (await bcrypt.compare(password, user.password)) ) {
                 const payload = { username: user.username };
                 const token = jwt.sign(payload, process.env.JWT_SECRET, {
-                  expiresIn: "24h"
+                  expiresIn: '24h'
                 });
                 res.json({
                   token,
@@ -32,20 +32,20 @@ const authController = {
               } else {
                 res.status(400).json({
                   statusCode: res.statusCode,
-                  message: "Invalid username or password"
+                  message: 'Invalid username or password'
                 });
               }
             
         } catch (error) {
 
             //if any code in the try block fails, send the user a HTTP status of 400 and a message
-            res.status(400).send("Something went wrong: " + error)
+            res.status(400).send('Something went wrong: ' + error);
 
         }
     },
     logout: async function(req, res){
       await req.logout();
-      res.status(204).send()
+      res.status(204).send();
     }
     
 

@@ -1,21 +1,21 @@
-require("dotenv-safe").config();
+require('dotenv-safe').config();
 
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const cors = require("cors");
+const cors = require('cors');
 // const path = require('path');
 
 const limiter = require('./middlewares/rateLimiter')
 const errorHandler = require('./middlewares/errorHandling')
-const auth = require("./auth");
+const auth = require('./auth');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/user.routes');
 const postsRouter = require('./routes/post.routes');
 const likesRouter = require('./routes/like.routes');
-const swaggerDocsRouter = require("./routes/swagger.routes");
+const swaggerDocsRouter = require('./routes/swagger.routes');
 
 const app = express();
 

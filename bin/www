@@ -27,9 +27,9 @@ mongoose.set('strictQuery', true);
 
 //Use mongoose to connect to MongoDB. Display success or failure message depending on connection status
 //If a connection to Mongo is successful, the server will start listening.
-mongoose.connect(process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/myApplication", { useNewUrlParser: true })
+mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/myApplication', { useNewUrlParser: true })
     .then(() => {
-        console.log("we have connected to mongo")
+        console.log('we have connected to mongo')
         
         /**
          * Listen on provided port, on all network interfaces.
@@ -39,7 +39,7 @@ mongoose.connect(process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/myApplic
         server.on('error', onError);
         server.on('listening', onListening);
     }).catch(() => {
-        console.log("could not connect to mongo")
+        console.log('could not connect to mongo')
     });
 
 
