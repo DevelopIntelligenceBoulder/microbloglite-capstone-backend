@@ -6,7 +6,7 @@ const Like = require('../models/like.model')
 const likeController = {
 
     //method to create a new user
-    createLike: async function(req, res){
+    createLike: async function (req, res) {
 
         try {
 
@@ -18,8 +18,8 @@ const likeController = {
             let newLike = await Like.create(likeData)
 
             //return the newly created user
-            res.status(201).json(await Like.findById(newLike._id, {__v: 0}))
-            
+            res.status(201).json(await Like.findById(newLike._id, { __v: 0 }))
+
         } catch (error) {
             //handle errors creating user
             console.log('failed to create like: ' + error)
@@ -31,33 +31,33 @@ const likeController = {
 
     },
     //method to get all users using async/await syntax
-    deleteLike: async function(req, res){
+    deleteLike: async function (req, res) {
 
         //using a try/catch since we are using asyn/await and want to catch any errors if the code in the try block fails
         try {
 
             //get the email address of the user from the url parameters
             const likeId = req.params.likeId;
-            
+
             //use our model to find the user that match a query.
             //{email: some@email.com} is the current query which really mean find the user with that email
             //we use await here since this is an async process and we want the code to wait for this to finish before moving on to the next line of code
             let foundLike = await Like.findById(likeId)
 
             //if we found the user, return that user otherwise return a 404
-            if(foundLike){
+            if (foundLike) {
                 Like.deleteOne(foundLike, (error) => {
-                        if (error) throw error
-                    });
+                    if (error) throw error
+                });
 
                 res.status(202).send({ message: 'Like deleted', statusCode: res.statusCode });
-            }else{
+            } else {
                 res.status(404).send({
                     status: res.statusCode,
                     message: 'Like Not Found!'
                 })
             }
-            
+
         } catch (error) {
             console.log('failed to delete like: ' + error)
             //if any code in the try block fails, send the user a HTTP status of 400 and a message stating we could not delete the post
