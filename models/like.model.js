@@ -1,5 +1,5 @@
 //bring in mongoose so we can create a schema that represents the data for a Like
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const opts = { timestamps: { createdAt: true, updatedAt: false } };
 //Create our schema using mongoose that contains the fields and their data types for our Likes
