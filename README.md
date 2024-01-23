@@ -24,3 +24,25 @@ The API requires uses Mongoose and a MongoDB database. To work with the API loca
 - Test the API by making a accessing `http://localhost:5000` in a broswer
 
 > **NOTE:** visiting `http://localhost:5000` will take you to a swagger/openapi documentation that describes and allows you test all the endpoints.
+
+### HTML sanitization
+- Any HTML in the `username` and `fullName` fields will be removed automatically.
+- Any HTML in the Post `text` and User `bio` fields will be sanitized. Some tags and attributes will be removed.
+- Tags and attributes allowed are partially listed [here](https://www.npmjs.com/package/sanitize-html#default-options) under the `allowedTags` and `allowedAttributes` objects listed there. 
+  - The following additional tags are allowed:
+    - `<img>`
+    - `<iframe>` but `autoplay` permission is removed and only the following hostnames are permitted in the `src` attribute.
+      - `www.youtube.com`
+      - `open.spotify.com`
+      - `embed.music.apple.com`
+      - `player.vimeo.com`
+  - The following attributes are allowed on all elements:
+    - alt
+    - aria-*
+    - class
+    - data-*
+    - lang
+    - rel
+    - title
+    - translate
+- Sanitizers are defined in `/services/sanitizers.js` and implemented in the controllers for the POST and PUT endpoints for Users and Posts.

@@ -1,5 +1,6 @@
 //Import our model so we can us it to interact with the realated data in MongoDB
 const User = require('../models/user.model')
+const { permissiveSanitizer, restrictiveSanitizer } = require('../services/sanitizers');
 
 
 //build our controller that will have our CRUD and other methods for our users
@@ -40,6 +41,11 @@ const userController = {
 
         //store user data sent through the request
         const userData = req.body;
+
+        //strip all HTML from username and fullName if defined
+        userData.username &&= restrictiveSanitizer(userData.username);
+        userData.fullName &&= restrictiveSanitizer(userData.fullName);
+
         const exactUsernameCaseInsensitive = new RegExp(`^${userData.username}$`, "i");
 
         try {
@@ -75,11 +81,15 @@ const userController = {
 
         try {
 
-            //get the user email from the request params
+            //get the username from the request params
             const username = req.params.username;
 
             //store user data sent through the request
             const newUserData = req.body;
+
+            //sanitize bio & fullName if defined
+            newUserData.bio &&= permissiveSanitizer(newUserData.bio);
+            newUserData.fullName &&= restrictiveSanitizer(newUserData.fullName);
 
             //try to find our user by the email provided in the request params
             const user = await User.findOne({ username: username })

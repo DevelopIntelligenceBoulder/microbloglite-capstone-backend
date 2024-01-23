@@ -99,6 +99,7 @@ components:
       required:
         - statusCode
     username:
+      description: Any HTML in this string will be removed automatically.
       type: string
       minLength: 3
       maxLength: 20
@@ -109,12 +110,15 @@ components:
     password:
       type: string
     fullName:
+      description: Any HTML in this string will be removed automatically.
       type: string
       minLength: 1
     bio:
+      description: Any HTML in this string will be sanitized. _Some_ tags and attributes will be removed automatically. See /README.md in the backend server repository for details.
       type: string
       minLength: 1
     text:
+      description: Any HTML in this string will be sanitized. _Some_ tags and attributes will be removed automatically. See /README.md in the backend server repository for details.
       type: string
       minLength: 2
       maxLength: 255

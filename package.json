@@ -20,6 +20,7 @@
     "morgan": "~1.9.1",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
+    "sanitize-html": "^2.11.0",
     "swagger-ui-express": "^4.1.6",
     "yamljs": "^0.3.0"
   },
