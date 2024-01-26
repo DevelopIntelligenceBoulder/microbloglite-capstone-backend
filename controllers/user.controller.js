@@ -81,36 +81,64 @@ const userController = {
 
         try {
 
-            //get the username from the request params
+            //get the username from the request params/path variable
             const username = req.params.username;
 
-            //store user data sent through the request
+            //try to find our user by the provided username
+            //if not, send error and exit the controller early
+            const user = await User.findOne({ username });
+            if (!user) {
+                res
+                    .status(404)
+                    .json({
+                        message: 'User not found', 
+                        statusCode: res.statusCode,
+                    });
+
+                return;
+            }
+
             const newUserData = req.body;
 
             //sanitize bio & fullName if defined
             newUserData.bio &&= permissiveSanitizer(newUserData.bio);
             newUserData.fullName &&= restrictiveSanitizer(newUserData.fullName);
 
-            //try to find our user by the email provided in the request params
-            const user = await User.findOne({ username: username })
+            //check if the user which we're expected to modify is the same as
+            //the currently-logged-in user
+            //if not, send error and exit the controller early
+            const requestedUsername = user.username;
+            const requestingUsername = req.user.get('username');
+            if (requestedUsername !== requestingUsername) {
+                res
+                    .status(403)
+                    .json({ 
+                        message: 'User not permitted to modify another user', 
+                        statusCode: res.statusCode,
+                    });
 
-            //update the user if we found a match and save or return a 404
-            if (user) {
-                Object.assign(user, newUserData)
-                await user.save()
-            } else {
-                res.status(404).send({ message: 'User not found', statusCode: res.statusCode });
+                return;
             }
 
+            //if the controller gets this far, then we should be ready to go
+
+            //update the user
+            Object.assign(user, newUserData);
+            await user.save();
+
             //respond with updated user
-            res.json(await User.findById(user._id, { _id: 0, __v: 0 }))
+            res.json(await User.findById(user._id, { _id: 0, __v: 0 }));
 
         } catch (error) {
-            console.log('failed to update user: ' + error)
-            res.status(400).json({
-                message: error.message,
-                statusCode: res.statusCode
-            })
+            console.log('failed to update user: ' + error);
+            res
+                .status(400)
+                .json({
+                    message: error.message,
+                    statusCode: res.statusCode,
+                });
+            
+            return;
         }
 
     },
