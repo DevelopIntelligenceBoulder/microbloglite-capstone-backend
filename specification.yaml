@@ -33,6 +33,10 @@ components:
         - bio
         - createdAt
         - updatedAt
+    ArrayOfUsers:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
     Like:
       additionalProperties: false
       type: object
@@ -70,7 +74,11 @@ components:
         - text
         - username
         - createdAt
-        - likes
+        - likes      
+    ArrayOfPosts:
+      type: array
+      items:
+        $ref: "#/components/schemas/Post"
     OperationalError:
       allOf:
         - type: object
@@ -116,7 +124,7 @@ components:
     bio:
       description: Any HTML in this string will be sanitized. _Some_ tags and attributes will be removed automatically. See /README.md in the backend server repository for details.
       type: string
-      minLength: 1
+      minLength: 0
     text:
       description: Any HTML in this string will be sanitized. _Some_ tags and attributes will be removed automatically. See /README.md in the backend server repository for details.
       type: string
@@ -181,6 +189,24 @@ components:
         enum:
           - Bearer realm="POST your username and password to /auth/login to receive a token"
   responses:
+    202:
+      description: A message describing a successful delete operation
+      content:
+        application/json:
+          schema:
+            allOf:
+              - type: object
+                properties:
+                  id:
+                    $ref: "#/components/schemas/likeId"
+                  statusCode:
+                    type: integer
+                    enum: [202]
+                required:
+                  - id
+                  - statusCode
+    204:
+      description: No content (but successful)
     400:
       description: Bad Request
       content:
@@ -251,7 +277,7 @@ paths:
                 - password
       responses:
         200:
-          description: OK
+          description: An object containing the username and bearer token of the newly-authenticated user
           content:
             application/json:
               schema:
@@ -262,10 +288,13 @@ paths:
                         $ref: "#/components/schemas/username"
                       token:
                         type: string
+                      statusCode:
+                        type: integer
+                        enum: [200]
                     required:
                       - username
                       - token
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+                      - statusCode
         400:
           $ref: "#/components/responses/400"
   /auth/logout:
@@ -279,7 +308,7 @@ paths:
         - bearerAuth: []
       responses:
         204:
-          description: No Content (but the request was successful)
+          $ref: "#/components/responses/204"
         401:
           $ref: "#/components/responses/401"
   /api/users:
@@ -296,23 +325,11 @@ paths:
         - $ref: "#/components/parameters/offsetParam"
       responses:
         200:
-          description: OK
+          description: An array of user objects
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      users:
-                        type: array
-                        items:
-                          $ref: "#/components/schemas/User"
-                      count:
-                        type: integer
-                    required:
-                      - users
-                      - count
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+                $ref: "#/components/schemas/ArrayOfUsers"
         400:
           $ref: "#/components/responses/400"
     post:
@@ -340,19 +357,12 @@ paths:
                 - displayName
                 - password
       responses:
-        200:
-          description: OK
+        201:
+          description: The newly-created user
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      user:
-                        $ref: "#/components/schemas/User"
-                    required:
-                      - user
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+                $ref: "#/components/schemas/User"
         400:
           $ref: "#/components/responses/400"
         409:
@@ -370,18 +380,11 @@ paths:
         - $ref: "#/components/parameters/username"
       responses:
         200:
-          description: OK
+          description: The requested user
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      user:
-                        $ref: "#/components/schemas/User"
-                    required:
-                      - user
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+                $ref: "#/components/schemas/User"
         400:
           $ref: "#/components/responses/400"
         404:
@@ -413,18 +416,11 @@ paths:
                   $ref: "#/components/schemas/fullName"
       responses:
         200:
-          description: OK
+          description: The new state of the user as updated
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      user:
-                        $ref: "#/components/schemas/User"
-                    required:
-                      - user
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+                $ref: "#/components/schemas/User"
         400:
           $ref: "#/components/responses/400"
         401:
@@ -453,23 +449,11 @@ paths:
             $ref: "#/components/schemas/username"
       responses:
         200:
-          description: OK
+          description: An array of post objects
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      posts:
-                        type: array
-                        items:
-                          $ref: "#/components/schemas/Post"
-                      count:
-                        type: integer
-                    required:
-                      - posts
-                      - count
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+                $ref: "#/components/schemas/ArrayOfPosts"
         400:
           $ref: "#/components/responses/400"
     post:
@@ -494,19 +478,12 @@ paths:
               required:
                 - text
       responses:
-        200:
-          description: OK
+        201:
+          description: The newly-created post
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      post:
-                        $ref: "#/components/schemas/Post"
-                    required:
-                      - post
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+                $ref: "#/components/schemas/Post"
         400:
           $ref: "#/components/responses/400"
         401:
@@ -524,18 +501,11 @@ paths:
         - $ref: "#/components/parameters/postId"
       responses:
         200:
-          description: OK
+          description: The requested post
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      post:
-                        $ref: "#/components/schemas/Post"
-                    required:
-                      - post
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+                $ref: "#/components/schemas/Post"
         400:
           $ref: "#/components/responses/400"
         404:
@@ -551,8 +521,8 @@ paths:
       parameters:
         - $ref: "#/components/parameters/postId"
       responses:
-        200:
-          description: OK
+        202:
+          description: A message describing a successful delete operation
           content:
             application/json:
               schema:
@@ -561,6 +531,8 @@ paths:
                     properties:
                       message:
                         type: string
+                        enum:
+                          - Post deleted
                     required:
                       - id
                   - $ref: "#/components/schemas/SuccessStatusCode"
@@ -594,17 +566,12 @@ paths:
               required:
                 - postId
       responses:
-        200:
-          description: OK
+        201:
+          description: The newly-created like object
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      like:
-                        $ref: "#/components/schemas/Like"
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+                $ref: "#/components/schemas/Like"
         400:
           $ref: "#/components/responses/400"
         401:
@@ -621,19 +588,8 @@ paths:
       parameters:
         - $ref: "#/components/parameters/likeId"
       responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - type: object
-                    properties:
-                      id:
-                        $ref: "#/components/schemas/likeId"
-                    required:
-                      - id
-                  - $ref: "#/components/schemas/SuccessStatusCode"
+        202:
+          $ref: "#/components/responses/202"
         400:
           $ref: "#/components/responses/400"
         401:

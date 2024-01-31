@@ -32,14 +32,17 @@ const authController = {
             } else {
                 res.status(400).json({
                     statusCode: res.statusCode,
-                    message: 'Invalid username or password'
+                    message: 'Invalid username or password',
                 });
             }
 
         } catch (error) {
 
             //if any code in the try block fails, send the user a HTTP status of 400 and a message
-            res.status(400).send('Something went wrong: ' + error);
+            res.status(400).json({
+                statusCode: res.statusCode,
+                message: 'Something went wrong: ' + error,
+            });
 
         }
     },
