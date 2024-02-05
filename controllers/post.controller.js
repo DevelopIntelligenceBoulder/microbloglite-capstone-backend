@@ -1,5 +1,6 @@
 //Import our model so we can us it to interact with the realated data in MongoDB
 const Post = require('../models/post.model');
+const {permissiveSanitizer} = require('../services/sanitizers');
 
 
 //build our controller that will have our CRUD and other methods for our posts
@@ -53,6 +54,7 @@ const postController = {
             //store user data sent through the request
             const postData = req.body;
             postData.username = req.user.username;
+            postData.text = permissiveSanitizer(postData.text);
 
             //pass the userData to the create method of the User model
             const newPost = await Post.create(postData);

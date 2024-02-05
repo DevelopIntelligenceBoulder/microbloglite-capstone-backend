@@ -1,3 +1,5 @@
+*.devnotes.*
+
 # Logs
 logs
 *.log
