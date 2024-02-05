@@ -7,8 +7,6 @@ servers:
     description: AWS
   - url: https://microbloglite.onrender.com
     description: Render
-  - url: https://microbloglite.cyclic.app
-    description: Cyclic
   - url: http://localhost:5000
     description: localhost
 components:
