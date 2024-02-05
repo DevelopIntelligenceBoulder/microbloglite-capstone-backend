@@ -31,11 +31,12 @@ The API requires uses Mongoose and a MongoDB database. To work with the API loca
 - Tags and attributes allowed are partially listed [here](https://www.npmjs.com/package/sanitize-html#default-options) under the `allowedTags` and `allowedAttributes` objects listed there. 
   - The following additional tags are allowed:
     - `<img>`
-    - `<iframe>` but `autoplay` permission is removed and only the following hostnames are permitted in the `src` attribute.
+    - `<iframe>` but `autoplay` permission is removed, some additional security policies are being enforced, and only the following hostnames are permitted in the `src` attribute.
       - `www.youtube.com`
       - `open.spotify.com`
       - `embed.music.apple.com`
       - `player.vimeo.com`
+      - `widget.deezer.com`
   - The following attributes are allowed on all elements:
     - alt
     - aria-*
