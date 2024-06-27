@@ -20,13 +20,13 @@ const swaggerDocsRouter = require('./routes/swagger.routes');
 const app = express();
 
 app.use(logger('dev'));
-app.use(limiter); // Replace with `app.use('/api', limiter)` if you only want to rate limit /api endpoints
+app.use(cors({ preflightContinue: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(auth.middleware)
+app.use(limiter); // Replace with `app.use('/api', limiter)` if you only want to rate limit /api endpoints
 app.use(swaggerDocsRouter);
-app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
