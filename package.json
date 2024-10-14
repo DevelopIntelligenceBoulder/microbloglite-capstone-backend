@@ -10,11 +10,11 @@
     "watch": "nodemon"
   },
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "cookie-parser": "~1.4.4",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "dotenv-safe": "^8.2.0",
+    "debug": "^4.3.7",
+    "dotenv-safe": "^9.1.0",
     "express": "^5.0.1",
     "express-rate-limit": "^7.1.5",
     "jsonwebtoken": "^9.0.2",
