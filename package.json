@@ -22,7 +22,7 @@
     "md5": "^2.3.0",
     "mongoose": "^8.7.2",
     "morgan": "^1.10.0",
-    "passport": "^0.5.0",
+    "passport": "^0.5.3",
     "passport-jwt": "^4.0.1",
     "sanitize-html": "^2.11.0",
     "swagger-ui-express": "^4.1.6",
