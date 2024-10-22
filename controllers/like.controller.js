@@ -46,9 +46,8 @@ const likeController = {
 
             //if we found the user, return that user otherwise return a 404
             if (foundLike) {
-                Like.deleteOne(foundLike, (error) => {
-                    if (error) throw error
-                });
+                Like.deleteOne(foundLike)
+                    .catch((error) => { throw error });
 
                 res.status(202).send({ message: 'Like deleted', statusCode: res.statusCode });
             } else {

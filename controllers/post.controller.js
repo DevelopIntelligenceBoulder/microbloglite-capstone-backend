@@ -131,9 +131,8 @@ const postController = {
 
             //if we found the user, return that user otherwise return a 404
             if (foundPost) {
-                Post.deleteOne(foundPost, (error) => {
-                    if (error) throw error;
-                });
+                Post.deleteOne(foundPost)
+                    .catch((error) => { throw error });
 
                 res
                     .status(202)
