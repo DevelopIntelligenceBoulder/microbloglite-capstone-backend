@@ -27,7 +27,7 @@ mongoose.set('strictQuery', true);
 
 //Use mongoose to connect to MongoDB. Display success or failure message depending on connection status
 //If a connection to Mongo is successful, the server will start listening.
-mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/myApplication', { useNewUrlParser: true })
+mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/myApplication')
     .then(() => {
         console.log('we have connected to mongo')
 
