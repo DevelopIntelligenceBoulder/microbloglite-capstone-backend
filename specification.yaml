@@ -5,8 +5,8 @@ info:
 servers:
   - url: http://microbloglite.us-east-2.elasticbeanstalk.com
     description: AWS
-  - url: https://microbloglite.onrender.com
-    description: Render
+  - url: http://localhost:4010
+    description: Prism (local proxy)
   - url: http://localhost:5000
     description: localhost
 components:
@@ -48,7 +48,7 @@ components:
         createdAt:
           $ref: "#/components/schemas/timestamp"
       required:
-        - id
+        - _id
         - username
         - postId
         - createdAt
@@ -126,8 +126,8 @@ components:
     text:
       description: Any HTML in this string will be sanitized. _Some_ tags and attributes will be removed automatically. See /README.md in the backend server repository for details.
       type: string
-      minLength: 2
-      maxLength: 255
+      minLength: 1
+      maxLength: 1000
     timestamp:
       type: string
       format: date-time
@@ -201,7 +201,6 @@ components:
                     type: integer
                     enum: [202]
                 required:
-                  - id
                   - statusCode
     204:
       description: No content (but successful)
@@ -352,7 +351,7 @@ paths:
                   $ref: "#/components/schemas/password"
               required:
                 - username
-                - displayName
+                - fullName
                 - password
       responses:
         201:
@@ -531,8 +530,6 @@ paths:
                         type: string
                         enum:
                           - Post deleted
-                    required:
-                      - id
                   - $ref: "#/components/schemas/SuccessStatusCode"
         400:
           $ref: "#/components/responses/400"

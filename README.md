@@ -47,3 +47,13 @@ The API requires uses Mongoose and a MongoDB database. To work with the API loca
     - title
     - translate
 - Sanitizers are defined in `/services/sanitizers.js` and implemented in the controllers for the POST and PUT endpoints for Users and Posts.
+
+### FOR MAINTAINERS
+
+#### Prism
+
+[Prism](https://github.com/stoplightio/prism?tab=readme-ov-file#validation-proxy) helps us keep the OpenAPI/Swagger specification ([/specification.yaml](./specification.yaml)) in sync with the implementation. First ensure the Express server is running (`npm start`). Then run `npx prism proxy ./specification.yaml http://localhost:5000 --errors` or `npm run prism` to start the API validator proxy. Point your Postman client or front-end to the Prism server (likely http://127.0.0.1:4010). API requests sent through the Prism proxy will be validated against our OpenAPI spec before being passed onto the actual Express server.
+
+#### Passport versions
+
+As of October 2024, the latest versions of Passport (v0.6.0 and v0.7.0) introduced a breaking change which ignores the `session: false` option, causing our current sessionless JWT implementation to error out, complaining that we aren't running session middleware. So right now, we're keeping Passport to v0.5.3. Hopefully, a future version will restore the sessionless functionality. Otherwise, we'll have to try to hold on v0.5.3 for as long as possible, replace Passport, or refactor our auth solution to use sessions to appease Passport.

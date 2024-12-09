@@ -62,7 +62,11 @@ const postController = {
             //return the newly created user
             res
                 .status(201)
-                .json(await Post.findById(newPost._id, { __v: 0 }));
+                .json(
+                    await Post
+                        .findById(newPost._id, { __v: 0 })
+                        .populate('likes', { __v: 0 })
+                );
 
         } catch (error) {
             //handle errors creating user
