@@ -5,6 +5,7 @@ This API represents the basic fetures of a twitter(ish) site. The API supports U
 ## Setup
 - Clone this repository to your machine and `cd` into the directory.
 - In your terminal, **run `npm install`**.
+- If your project is written in standard HTML, JavaScript, and CSS, rather than a framework like React or Angular, be sure to **run your front-end project via VS Code's Live Server extension or you may run into CORS errors**.
 
 ### Two ways to run this API server
 #### Local MongoDB database
@@ -16,7 +17,6 @@ This API represents the basic fetures of a twitter(ish) site. The API supports U
   DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@SUBDOMAINS.mongodb.net/microblogLite?retryWrites=true&w=majority"
   JWT_SECRET="whateveryouwant"
   ```
-
 
 ### Testing that this API server is running
 Visit [http://localhost:5000/](http://localhost:5000/) in your browser. You should see the MicroblogLite API documentation page.
