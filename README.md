@@ -1,6 +1,6 @@
 # Microblog API
 
-This API represents the basic fetures of a twitter(ish) site. The API supports Users, Authentication, Posts, and Likes. Users should be able to register, sign in, create posts, delete posts, like posts, and update their profile information.
+This API represents the basic features of a Twitter-like site. The API supports Users, Authentication, Posts, and Likes. Users should be able to register, sign in, create posts, delete posts, like posts, and update their profile information.
 
 ## Setup
 - Clone this repository to your machine and `cd` into the directory.
@@ -10,12 +10,15 @@ This API represents the basic fetures of a twitter(ish) site. The API supports U
 ### Two ways to run this API server
 #### Local MongoDB database
 - If you want to run this API server with a **locally-installed database**, make sure MongoDB is installed on your machine and running as a service. To run the API server using this local database, simply run `npm run local` or `npm run local-watch`.
-- If you get the error "PORT 5000 is already in use," you may have to stop a server which is already using that port, or you can override the port used by the MicroblogLite API server by adding `PORT=xxxx` (where "XXXX" is a new port number of your choice greater than 1024) in the `"local"` script in `package.json`, immediately after `cross-env`. For example, if the "local" script currently looks like this:
+- If you get the error "PORT 5000 is already in use," you may have to stop a server which is already using that port, or you can override the port used by the MicroblogLite API server by adding `PORT=xxxx` (where "XXXX" is a new port number of your choice greater than 1024) in the `"local"` script in `package.json`, immediately after `cross-env`.
 
-> "local": "cross-env NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
-
-...then you would add `PORT=xxxx` like this:
-> "local": "cross-env PORT=5001 NODE_ENV=development JWT_SECRET=foobar node ./bin/www", 
+    For example, if the "local" script currently looks like this:
+    
+    > "local": "cross-env NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
+    
+    ...then you would add `PORT=xxxx` like this:
+    
+    > "local": "cross-env PORT=5001 NODE_ENV=development JWT_SECRET=foobar node ./bin/www", 
 
 #### Cloud MongoDB database
 - If you want to run this server with a **cloud database**, you will need to create a `.env` file by copying the `.env.example` file provided (`cp .env.example .env`) and edit it to include the correct connection details. Finally, run `npm start` or `npm watch`. A valid `.env` might look like this:
