@@ -25,11 +25,13 @@ const server = http.createServer(app);
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 
+console.info('⌛ Waiting for the database to connect...')
 //Use mongoose to connect to MongoDB. Display success or failure message depending on connection status
 //If a connection to Mongo is successful, the server will start listening.
-mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/myApplication')
-    .then(() => {
-        console.log('we have connected to mongo')
+mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/microblogLite')
+    .then((connection) => {
+        const url = new URL(connection.connection.client.s.url)
+        console.info('✅ Connected to database at', url.host)
 
         /**
          * Listen on provided port, on all network interfaces.
@@ -39,7 +41,7 @@ mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/myApplic
         server.on('error', onError);
         server.on('listening', onListening);
     }).catch(() => {
-        console.log('could not connect to mongo')
+        console.log('❌ Could not connect to the database!')
     });
 
 
@@ -100,5 +102,6 @@ function onListening() {
     const bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
+    console.log('👂 Server listening on localhost', bind);
     debug('Listening on ' + bind);
 }
