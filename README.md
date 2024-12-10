@@ -10,7 +10,7 @@ This API represents the basic features of a Twitter-like site. The API supports 
 ### Two ways to run this API server
 #### Local MongoDB database
 - If you want to run this API server with a **locally-installed database**, make sure MongoDB is installed on your machine and running as a service. To run the API server using this local database, simply run `npm run local` or `npm run local-watch`.
-- If you get the error "PORT 5000 is already in use," you may have to stop a server which is already using that port, or you can override the port used by the MicroblogLite API server by adding `PORT=xxxx` (where "XXXX" is a new port number of your choice greater than 1024) in the `"local"` script in `package.json`, immediately after `cross-env`.
+- If you get the error "PORT 5000 is already in use," you may have to stop a server which is already using that port, or you can override the port used by the MicroblogLite API server by adding `PORT=xxxx` (where "xxxx" must be a new port number of your choice between 3000 and 9000) in the `"local"` script in `package.json`, immediately after `cross-env`.
 
     For example, if the "local" script currently looks like this:
     
