@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
+console.info('⌛ Booting the server & waiting for the database to connect...');
+
 /**
  * Module dependencies.
  */
 
 const app = require('../app');
-const debug = require('debug')('mycapstoneapp:server');
+const debug = require('debug')('microblogLite:server');
 const http = require('http');
 
 /**
@@ -25,7 +27,6 @@ const server = http.createServer(app);
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 
-console.info('⌛ Waiting for the database to connect...')
 //Use mongoose to connect to MongoDB. Display success or failure message depending on connection status
 //If a connection to Mongo is successful, the server will start listening.
 mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/microblogLite')

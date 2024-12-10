@@ -1,6 +1,6 @@
 {
-  "name": "capstone-starter-be",
-  "version": "0.0.0",
+  "name": "microbloglite-capstone-starter",
+  "version": "2.0.0",
   "private": true,
   "engines": {
     "node": ">=18 <=23"
@@ -9,7 +9,7 @@
     "start": "node ./bin/www",
     "watch": "nodemon",
     "local": "cross-env NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
-    "local-watch": "cross-env NODE_ENV=development JWT_SECRET=foobar nodemon",
+    "local-watch": "cross-env NODE_ENV=development JWT_SECRET=foobar DEBUG='*' nodemon",
     "prism": "npx prism proxy ./specification.yaml http://localhost:5000 --errors"
   },
   "dependencies": {
