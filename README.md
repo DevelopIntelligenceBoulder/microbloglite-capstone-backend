@@ -10,19 +10,13 @@ This API represents the basic features of a Twitter-like site. The API supports 
 ### Two ways to run this API server
 #### Local MongoDB database
 - If you want to run this API server with a **locally-installed database**, make sure MongoDB is installed on your machine and running as a service. To run the API server using this local database, simply run `npm run local` or `npm run local-watch`.
-- If you get the error "PORT 5000 is already in use," you may have to stop a server which is already using that port, or you can override the port used by the MicroblogLite API server by adding `PORT=xxxx` (where "xxxx" must be a new port number of your choice between 3000 and 9000) in the `"local"` script in `package.json`, immediately after `cross-env`.
+- If you get the error "PORT 5005 is already in use," you may have to stop a server which is already using that port, or you can override the port used by the MicroblogLite API server by modifying `PORT=5005` in the `"local"` script in `package.json` (choose a number between 3000 and 9000).
 
-    For example, if the "local" script currently looks like this:
+    For example, changing the PORT to 7337 would look like this:
     
     ```json
-    "local": "cross-env NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
-    ```
-    
-    ...then you would add `PORT=xxxx ` (with a trailing space) after `cross-env` like this:
-    
-    ```json
-                        ↓↓↓↓↓↓↓↓↓↓
-    "local": "cross-env PORT=5001 NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
+                             ↓↓↓↓
+    "local": "cross-env PORT=7337 NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
     ```
 
 #### Cloud MongoDB database
@@ -33,7 +27,7 @@ This API represents the basic features of a Twitter-like site. The API supports 
   ```
 
 ### Testing that this API server is running
-Visit [http://localhost:5000/](http://localhost:5000/) in your browser. You should see the MicroblogLite API documentation page.
+Visit [http://localhost:5005/](http://localhost:5005/) in your browser. You should see the MicroblogLite API documentation page.
 
 ## Notes on HTML sanitization
 - Any HTML in the `username` and `fullName` fields will be removed automatically.
@@ -62,7 +56,7 @@ Visit [http://localhost:5000/](http://localhost:5000/) in your browser. You shou
 
 ### Prism
 
-[Prism](https://github.com/stoplightio/prism?tab=readme-ov-file#validation-proxy) helps us keep the OpenAPI/Swagger specification ([/specification.yaml](./specification.yaml)) in sync with the implementation. First ensure the Express server is running (`npm start`). Then run `npx prism proxy ./specification.yaml http://localhost:5000 --errors` or `npm run prism` to start the API validator proxy. Point your Postman client or front-end to the Prism server (likely http://127.0.0.1:4010). API requests sent through the Prism proxy will be validated against our OpenAPI spec before being passed onto the actual Express server.
+[Prism](https://github.com/stoplightio/prism?tab=readme-ov-file#validation-proxy) helps us keep the OpenAPI/Swagger specification ([/specification.yaml](./specification.yaml)) in sync with the implementation. First ensure the Express server is running (`npm start`). Then run `npx prism proxy ./specification.yaml http://localhost:5005 --errors` or `npm run prism` to start the API validator proxy. Point your Postman client or front-end to the Prism server (likely http://127.0.0.1:4010). API requests sent through the Prism proxy will be validated against our OpenAPI spec before being passed onto the actual Express server.
 
 ### Passport versions
 
