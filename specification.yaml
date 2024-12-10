@@ -3,12 +3,12 @@ info:
   title: MicroblogLite API
   version: "1.0.0"
 servers:
+  - url: http://localhost:5005
+    description: localhost
   - url: http://microbloglite.us-east-2.elasticbeanstalk.com
     description: AWS
   - url: http://localhost:4010
     description: Prism (local proxy)
-  - url: http://localhost:5000
-    description: localhost
 components:
   schemas:
     User:
