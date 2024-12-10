@@ -62,6 +62,10 @@ Visit [http://localhost:5005/](http://localhost:5005/) or [http://localhost:5005
 
 ## FOR MAINTAINERS
 
+### Changes to the API (OpenAPI Spec and Postman Collection)
+
+If changes are made to the API, you will need to correct the [OpenAPI spec](./specification.yaml) and [Postman Collection](./MicroblogLite_Test_Workflow.postman_collection.json) configurations manually. These are not yet configured to be generated from each other.
+
 ### Prism
 
 [Prism](https://github.com/stoplightio/prism?tab=readme-ov-file#validation-proxy) helps us keep the OpenAPI/Swagger specification ([/specification.yaml](./specification.yaml)) in sync with the implementation. First ensure the Express server is running (`npm start`). Then run `npx prism proxy ./specification.yaml http://localhost:5005 --errors` or `npm run prism` to start the API validator proxy. Point your Postman client or front-end to the Prism server (likely http://127.0.0.1:4010). API requests sent through the Prism proxy will be validated against our OpenAPI spec before being passed onto the actual Express server.
