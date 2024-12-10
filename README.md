@@ -21,7 +21,6 @@ This API represents the basic features of a Twitter-like site. The API supports 
     ...then you would add `PORT=xxxx ` (with a trailing space) after `cross-env` like this:
     
     ```json
-    >                     ↓↓↓↓↓↓↓↓↓↓
     > "local": "cross-env PORT=5001 NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
     ```
 
