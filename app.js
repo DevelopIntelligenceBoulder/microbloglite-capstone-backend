@@ -1,4 +1,11 @@
-require('dotenv-safe').config();
+const dotenv = require('dotenv-safe');
+
+if (process.env.NODE_ENV !== 'development') {
+    dotenv.config({
+        allowEmptyValues: true,
+        example: '.env.example',
+    });
+};
 
 const express = require('express');
 const cookieParser = require('cookie-parser');

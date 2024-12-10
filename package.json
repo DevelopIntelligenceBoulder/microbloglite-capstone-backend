@@ -8,6 +8,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "watch": "nodemon",
+    "local": "cross-env NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
+    "watch-local": "cross-env NODE_ENV=development JWT_SECRET=foobar nodemon",
     "prism": "npx prism proxy ./specification.yaml http://localhost:5000 --errors"
   },
   "dependencies": {
@@ -30,6 +32,7 @@
   },
   "devDependencies": {
     "@stoplight/prism-cli": "^5.10.0",
+    "cross-env": "^7.0.3",
     "nodemon": "^3.1.7"
   }
 }
