@@ -26,8 +26,16 @@ This API represents the basic features of a Twitter-like site. The API supports 
   JWT_SECRET="whateveryouwant"
   ```
 
-### Testing that this API server is running
-Visit [http://localhost:5005/](http://localhost:5005/) in your browser. You should see the MicroblogLite API documentation page.
+### Accessing the API docs
+Visit [http://localhost:5005/](http://localhost:5005/) or [http://localhost:5005/docs](http://localhost:5005/docs) in your browser. You should see the MicroblogLite API documentation page.
+
+### Testing the API in Postman
+1. Create a new Workspace in Postman and then a new Collection.
+2. Import [MicroblogLite_Test_Workflow.postman_collection.json](./MicroblogLite_Test_Workflow.postman_collection.json).
+3. In the Environments panel, define a global variable `base_url` and set the value to the base URL for the server instance you would like to use (e.g. `http://localhost:5005` - _without_ a trailing slash). Save your change.
+4. In the Collections panel, context-click (right-click) on the heading "MicroblogLite Test Workflow" and select "**Run collection**".
+5. You will be presented with the Runner. No changes should need to be made to the default settings. Click the button "Rub MicroblogLite Test Workflow" after ensuring that your server is running (and running on the port you specified in Postman's `base_url` global variable).
+6. If the API is running correctly, you should expect to see exclusively 200-level HTTP status codes in response to the requests.
 
 ## Notes on HTML sanitization
 - Any HTML in the `username` and `fullName` fields will be removed automatically.
