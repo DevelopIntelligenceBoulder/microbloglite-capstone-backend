@@ -14,11 +14,16 @@ This API represents the basic features of a Twitter-like site. The API supports 
 
     For example, if the "local" script currently looks like this:
     
-    > "local": "cross-env NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
+    ```json
+    "local": "cross-env NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
+    ```
     
-    ...then you would add `PORT=xxxx` like this:
+    ...then you would add `PORT=xxxx ` (with a trailing space) after `cross-env` like this:
     
-    > "local": "cross-env PORT=5001 NODE_ENV=development JWT_SECRET=foobar node ./bin/www", 
+    ```json
+    >                     ↓↓↓↓↓↓↓↓↓↓
+    > "local": "cross-env PORT=5001 NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
+    ```
 
 #### Cloud MongoDB database
 - If you want to run this server with a **cloud database**, you will need to create a `.env` file by copying the `.env.example` file provided (`cp .env.example .env`) and edit it to include the correct connection details. Finally, run `npm start` or `npm watch`. A valid `.env` might look like this:
