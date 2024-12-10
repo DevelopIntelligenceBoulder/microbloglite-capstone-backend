@@ -9,7 +9,7 @@
     "start": "node ./bin/www",
     "watch": "nodemon",
     "local": "cross-env NODE_ENV=development JWT_SECRET=foobar node ./bin/www",
-    "watch-local": "cross-env NODE_ENV=development JWT_SECRET=foobar nodemon",
+    "local-watch": "cross-env NODE_ENV=development JWT_SECRET=foobar nodemon",
     "prism": "npx prism proxy ./specification.yaml http://localhost:5000 --errors"
   },
   "dependencies": {
