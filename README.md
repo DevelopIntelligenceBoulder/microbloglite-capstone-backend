@@ -20,7 +20,7 @@ This API represents the basic features of a Twitter-like site. The API supports 
     ```
 
 #### Cloud MongoDB database
-- If you want to run this server with a **cloud database**, you will need to create a `.env` file by copying the `.env.example` file provided (`cp .env.example .env`) and edit it to include the correct connection details. Finally, run `npm start` or `npm watch`. A valid `.env` might look like this:
+- If you want to run this server with a **cloud database** (for example, in production), you will need to create a `.env` file by copying the `.env.example` file provided (`cp .env.example .env`) and edit it to include the correct connection details. Finally, run `npm start` or `npm watch`. A valid `.env` might look like this:
   ```
   DATABASE_URL="mongodb+srv://USERNAME:PASSWORD@SUBDOMAINS.mongodb.net/microblogLite?retryWrites=true&w=majority"
   JWT_SECRET="whateveryouwant"
