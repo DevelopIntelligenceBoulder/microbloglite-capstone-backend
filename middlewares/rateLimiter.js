@@ -8,7 +8,11 @@ const md5 = require('md5');
 // User-Agent. But this mitigation should be sufficient unless we get specifically targeted.
 const fingerprinter = (req, _res) => req.get('Authorization') || md5(req.ip + req.get('User-Agent'));
 
-const [maxRequestsPerWindow, windowInMinutes] = [100, 2] // Max 100 requests every 2 minutes
+const [maxRequestsPerWindow, windowInMinutes] = [
+    process.env.MAX_REQUESTS || 100,
+    process.env.WINDOW_IN_MINS || 2,
+] // Max 100 requests every 2 minutes
+
 const message = `too many requests: you can only make ${maxRequestsPerWindow} requests every ${windowInMinutes} minutes; please wait ${windowInMinutes} minutes before trying again.`
 
 const limiter = rateLimit({
